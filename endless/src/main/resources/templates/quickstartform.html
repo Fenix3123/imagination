@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>QuickStart</title>
+	</head>
+	<body>
+	  
+		<h1>Post your project!</h1>
+		<a th:href="@{/dashboard}">go back to the main pahe</a>
+		<form action="" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<div>
+				Project Name: <input type="text" th:field="${projects.projectname}" />
+			</div>
+			<div>
+				Description: <input type="text" size="50" th:field="${projects.description}" />
+			</div>
+			<div>
+				<input type="submit" value="Post project" />
+			</div>
+		</form>
+	
+	</body>
+</html>
