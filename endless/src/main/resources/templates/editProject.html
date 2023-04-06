@@ -3,14 +3,15 @@
 	<head>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>QuickStart</title>
+		<title>projectslist</title>
 	</head>
 	<body>
 	  
-		<h1>Post your project!</h1>
+		<h1>Edit this Project</h1>
 		
 		<form action="" method="post">
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="hidden" th:field="${projects.id}" />
 			<div>
 				Project Name: <input type="text" th:field="${projects.projectname}" />
 			</div>
@@ -18,9 +19,10 @@
 				Description: <input type="text" size="50" th:field="${projects.description}" />
 			</div>
 			<div>
-				<input type="submit" value="Post project" />
+				<input type="submit" value="Edit project" />
 			</div>
 		</form>
-	<a th:href="@{/dashboard}">go back to the main page</a>
+		
+	<a th:href="@{/dashboard}">go back to dashboard</a>
 	</body>
 </html>

@@ -12,11 +12,13 @@
 		
 		<a th:href="@{/quickstartform}">Create a Posting for your project!!</a>
 		<a th:href="@{/userEdit}">Edit User information!</a>
+		<a th:href="@{/projectslist}">Edit Posted Projects!</a>
 		
 		<div style="border-style: solid;">
 			
 			<div th:each="projects: ${allprojects}">
 				User: [[${projects.user.username}]] <br/>
+				Email: 	[[${projects.user.email}]] <br/>
     			Project Name: [[${projects.projectname}]] <br/>
     			Description: <br>
     			[[${projects.description}]]

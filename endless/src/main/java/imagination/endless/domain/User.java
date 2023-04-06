@@ -17,8 +17,17 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
+	private String email;
 	private Set<Authorities> authorities = new HashSet<>();
 	private Set<Projects> projects = new HashSet<>();
+	
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
 	public Set<Authorities> getAuthorities() {

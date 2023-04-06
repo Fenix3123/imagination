@@ -28,9 +28,12 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/register")
-	public String postCreateUser (User user, Authorities authorities) {
+	public String postCreateUser (User user, Authorities authorities, String password2) {
 		//password encoder for password saving
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(!user.getPassword().equals(password2)) {
+			return "redirect:/register";
+		}
 		String password = passwordEncoder.encode(user.getPassword());
 		user.setPassword(password);
 		System.out.println(user);

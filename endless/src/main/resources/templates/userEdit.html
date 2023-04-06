@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Userview</title>
+	</head>
+	
+	<body>
+		<div class="container border">
+		<!--Start of container-->
+			<h1>Edit your user</h1>
+	
+			<form method="post" action="/userEdit">
+				<input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					Username: <input type="text" th:field="${user.username}" />
+				</div>
+				<div>
+					password: <input type="password" th:field="${user.password}" />
+				</div>
+				<div>
+					Re-enter-Password: <input type="password" name="password2"/>
+				</div>
+				<div>
+					Email: <input type="text" th:field="${user.email}" />
+				</div>
+				
+				<button type="submit">Enter</button>
+			</form>
+			<form method="post" action="/userdelete">
+				<input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<button type="submit">Delete User</button>
+			</form>
+			<a th:href="@{/dashboard}">Click go back to Dashboard</a>
+		<!--end of container-->
+		</div>
+	</body>
+</html>

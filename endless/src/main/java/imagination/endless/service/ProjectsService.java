@@ -28,5 +28,8 @@ public class ProjectsService {
 	public void delete(Projects projects) {
 		projectsRepo.delete(projects);
 	}
+	public Projects findByProjectName(Projects projects) {
+		return projectsRepo.findByprojectname(projects.getProjectname());
+	}
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>projectslist</title>
+	</head>
+	<body>
+	  
+		<h1>List of projects</h1>
+		
+		<div style="border-style: solid;">	
+			<div th:each="projects: ${projectsL}">
+				User: [[${projects.user.username}]] <br/>
+				Email: 	[[${projects.user.email}]] <br/>
+    			Project Name: [[${projects.projectname}]] <br/>
+    			Description: <br>
+    			[[${projects.description}]]
+    			<br>
+    			<a th:href="@{/editProject/{projectid}(projectid=${projects.id})}">Edit</a>
+    			
+    			<form method="post" action="">
+					<input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					<button type="submit">Delete</button>
+				</form>
+				<hr/>
+			</div>
+			
+		</div>
+		
+	<a th:href="@{/dashboard}">go back to dashboard</a>
+	</body>
+</html>

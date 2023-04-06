@@ -23,5 +23,9 @@ public class UserService {
 		Optional<User> userOpt = userrepo.findById(id);
 		return userOpt.orElse(new User());
 	}
+	
+	public void deleteUser(User user) {
+		userrepo.delete(user);
+	}
 
 }
