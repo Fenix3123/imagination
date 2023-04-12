@@ -31,5 +31,8 @@ public class ProjectsService {
 	public Projects findByProjectName(Projects projects) {
 		return projectsRepo.findByprojectname(projects.getProjectname());
 	}
+	public List<Projects> searchProjects(String keyword){
+		return projectsRepo.searchProjects(keyword);
+	}
 
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>joinproject</title>
+	</head>
+	<body>
+	  
+		<h1>Join this project</h1>
+		<h2>The project owner will email back if interested</h2>
+		<form action="" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<div>
+				Message:<input type="text" name="message"/>
+			</div>
+			<button type="submit">Enter</button>
+		</form>
+		
+	<a th:href="@{/dashboard}">go back to dashboard</a>
+	</body>
+</html>

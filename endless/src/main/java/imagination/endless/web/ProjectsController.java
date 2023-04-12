@@ -1,7 +1,9 @@
 package imagination.endless.web;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import imagination.endless.domain.Projects;
 import imagination.endless.domain.User;
 import imagination.endless.service.ProjectsService;
 import imagination.endless.service.UserService;
+
 
 
 @Controller
@@ -31,8 +34,10 @@ public class ProjectsController {
 	}
 	
 	@PostMapping("/quickstartform")
-	public String postQuickStartForm(@AuthenticationPrincipal User user, Projects projects) {
+	public String postQuickStartForm(@AuthenticationPrincipal User user, Projects projects, String dateofwatch) {
 		user = userService.findById(user.getId());
+		LocalDate localDate = LocalDate.parse(dateofwatch);
+		projects.setDate(localDate);
 		projects.setUser(user);
 		user.getProjects().add(projects);
 		projectsService.saveProjects(projects);
@@ -45,17 +50,43 @@ public class ProjectsController {
 		return "editProject";
 	}
 	@PostMapping("/editProject/{projectid}")
-	public String posteditProject(ModelMap model, @PathVariable Long projectid, Projects project,@AuthenticationPrincipal User user) {
+	public String posteditProject(ModelMap model, @PathVariable Long projectid, Projects projects,@AuthenticationPrincipal User user, String dateofwatch) {
 		user = userService.findById(user.getId());
-		project.setUser(user);
-		projectsService.saveProjects(project);
+		LocalDate localDate = LocalDate.parse(dateofwatch);
+		projects.setDate(localDate);
+		projects.setUser(user);
+		projectsService.saveProjects(projects);
 		return "redirect:/projectslist";
 	}
 	@GetMapping("/projectslist")
 	public String getProjectsList(ModelMap model, @AuthenticationPrincipal User user) {
 		user = userService.findById(user.getId());
-		Set<Projects> projectsL = user.getProjects();
+		List<Projects> projectsL = user.getProjects();
 		model.put("projectsL", projectsL);
 		return "projectslist";
+	}
+	@PostMapping("/deleteProject/{projectid}")
+	public String deleteProject(@AuthenticationPrincipal User user,@PathVariable Long projectid) {
+		user = userService.findById(user.getId());
+		Projects originalproject = projectsService.getById(projectid);
+		user.setProjects(user.getProjects().stream()
+				   .filter(projects ->{
+					   String item1 = String.valueOf(projects.getProjectname());
+					   String item2 = String.valueOf(originalproject.getProjectname());
+					   return !item1.equals(item2);
+				   })
+				   .collect(Collectors.toList()));
+		userService.saveUser(user);
+		projectsService.delete(originalproject);
+		return "redirect:/projectslist";
+	}
+	@GetMapping("/joinProject/{projectid}")
+	public String joinProject(ModelMap model,@AuthenticationPrincipal User user,@PathVariable Long projectid) {
+		Projects project = projectsService.getById(projectid);
+		user = userService.findById(user.getId());
+		model.put("user", user);
+		model.put("project", project);
+		
+		return "joinproject";
 	}
 }

@@ -1,6 +1,8 @@
 package imagination.endless.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -19,7 +22,8 @@ public class User {
 	private String password;
 	private String email;
 	private Set<Authorities> authorities = new HashSet<>();
-	private Set<Projects> projects = new HashSet<>();
+	private List<Projects> projects = new ArrayList<>();
+	private prospectPeople prospectpeople;
 	
 	
 	public String getEmail() {
@@ -57,12 +61,21 @@ public class User {
 	}
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
-	public Set<Projects> getProjects() {
+	public List<Projects> getProjects() {
 		return projects;
 	}
-	public void setProjects(Set<Projects> projects) {
+	public void setProjects(List<Projects> projects) {
 		this.projects = projects;
 	}
+	@OneToOne(mappedBy = "user")
+	public prospectPeople getProspectpeople() {
+		return prospectpeople;
+	}
+	public void setProspectpeople(prospectPeople prospectpeople) {
+		this.prospectpeople = prospectpeople;
+	}
+	
+	
 	
 	
 }
