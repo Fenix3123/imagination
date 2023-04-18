@@ -1,19 +1,31 @@
 package imagination.endless.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 
 @Entity
 public class prospectPeople {
-	private Long userid;
-	private User user;
+	private Long id;
+	private String useremail;
 	private String message;
 	private Projects project;
 	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getUseremail() {
+		return useremail;
+	}
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
+	}
 	public String getMessage() {
 		return message;
 	}
@@ -26,22 +38,6 @@ public class prospectPeople {
 	}
 	public void setProject(Projects project) {
 		this.project = project;
-	}
-	@Id
-	public Long getUserId() {
-		return userid;
-	}
-	public void setUserId(Long userid) {
-		this.userid = userid;
-	}
-	@OneToOne
-	@MapsId
-	@JoinColumn(name="user_id")
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 	
 	

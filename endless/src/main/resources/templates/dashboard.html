@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>QuickStart</title>
+		<link rel="stylesheet" href="/css/styles.css">
 	</head>
 	<body>
 	  
@@ -14,7 +15,7 @@
 		<a th:href="@{/userEdit}">Edit User information!</a>
 		<a th:href="@{/projectslist}">Edit Posted Projects!</a>
 		
-		<div style="border-style: solid;">
+		<div class="container">
 			<form method="post" action="">
 				<input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 				<input type="text" name="search"/>

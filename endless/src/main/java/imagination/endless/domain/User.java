@@ -23,7 +23,7 @@ public class User {
 	private String email;
 	private Set<Authorities> authorities = new HashSet<>();
 	private List<Projects> projects = new ArrayList<>();
-	private prospectPeople prospectpeople;
+	
 	
 	
 	public String getEmail() {
@@ -67,15 +67,7 @@ public class User {
 	public void setProjects(List<Projects> projects) {
 		this.projects = projects;
 	}
-	@OneToOne(mappedBy = "user")
-	public prospectPeople getProspectpeople() {
-		return prospectpeople;
-	}
-	public void setProspectpeople(prospectPeople prospectpeople) {
-		this.prospectpeople = prospectpeople;
-	}
-	
-	
+		
 	
 	
 }

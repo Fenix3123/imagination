@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import imagination.endless.domain.Projects;
 import imagination.endless.domain.User;
+import imagination.endless.domain.prospectPeople;
 import imagination.endless.service.ProjectsService;
 import imagination.endless.service.UserService;
+import imagination.endless.service.prospectPeopleService;
 
 
 
@@ -26,6 +28,8 @@ public class ProjectsController {
 	private UserService userService;
 	@Autowired
 	private ProjectsService projectsService;
+	@Autowired
+	private prospectPeopleService prospectpeopleservice;
 	
 	@GetMapping("/quickstartform")
 	public String getQuickStartForm(ModelMap model) {
@@ -45,7 +49,7 @@ public class ProjectsController {
 	}
 	@GetMapping("/editProject/{projectid}")
 	public String geteditProject(ModelMap model, @PathVariable Long projectid) {
-		Projects project = projectsService.getById(projectid);
+		Projects project = projectsService.findById(projectid);
 		model.put("projects", project);
 		return "editProject";
 	}
@@ -68,7 +72,7 @@ public class ProjectsController {
 	@PostMapping("/deleteProject/{projectid}")
 	public String deleteProject(@AuthenticationPrincipal User user,@PathVariable Long projectid) {
 		user = userService.findById(user.getId());
-		Projects originalproject = projectsService.getById(projectid);
+		Projects originalproject = projectsService.findById(projectid);
 		user.setProjects(user.getProjects().stream()
 				   .filter(projects ->{
 					   String item1 = String.valueOf(projects.getProjectname());
@@ -82,11 +86,28 @@ public class ProjectsController {
 	}
 	@GetMapping("/joinProject/{projectid}")
 	public String joinProject(ModelMap model,@AuthenticationPrincipal User user,@PathVariable Long projectid) {
-		Projects project = projectsService.getById(projectid);
+		Projects project = projectsService.findById(projectid);
 		user = userService.findById(user.getId());
 		model.put("user", user);
 		model.put("project", project);
 		
 		return "joinproject";
+	}
+	@PostMapping("/joinProject/{projectid}")
+	public String postjoinProject(@AuthenticationPrincipal User user,@PathVariable Long projectid, String message) {
+		prospectPeople prospectpeople = new prospectPeople();
+		Projects project = projectsService.findById(projectid);
+		user = userService.findById(user.getId());
+		prospectpeople.setUseremail(user.getEmail());
+		prospectpeople.setMessage(message);
+		prospectpeople.setProject(project);
+		project.getProspectpeople().add(prospectpeople);
+		prospectpeopleservice.save(prospectpeople);
+		return "redirect:/dashboard";
+	}
+	@GetMapping("/deleteProspect/{id}")
+	public String deleteProspect(@PathVariable Long id) {
+		prospectpeopleservice.delete(id);
+		return "redirect:/projectslist";
 	}
 }

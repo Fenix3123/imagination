@@ -4,26 +4,28 @@
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>QuickStart</title>
+		<link rel="stylesheet" href="/css/styles.css">
 	</head>
 	<body>
 	  
 		<h1>Post your project!</h1>
-		
-		<form action="" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<div>
-				Project Name: <input type="text" th:field="${projects.projectname}" />
-			</div>
-			<div>
-				Description: <input type="text" size="50" th:field="${projects.description}" />
-			</div>
-			<div>
-			Date of Post: <input type="date" name="dateofwatch" th:value="${projects.date}"/>
-			</div>
-			<div>
-				<input type="submit" value="Post project" />
-			</div>
-		</form>
-	<a th:href="@{/dashboard}">go back to the main page</a>
+		<div class="container">
+			<form action="" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					Project Name: <input type="text" th:field="${projects.projectname}" />
+				</div>
+				<div>
+					Description: <input type="text" size="50" th:field="${projects.description}" />
+				</div>
+				<div>
+				Date of Post: <input type="date" name="dateofwatch" th:value="${projects.date}"/>
+				</div>
+				<div>
+					<input type="submit" value="Post project" />
+				</div>
+			</form>
+			<a th:href="@{/dashboard}">go back to the main page</a>
+		</div>
 	</body>
 </html>

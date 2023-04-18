@@ -5,29 +5,45 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Create Account</title>
 	</head>
+	<style>
+	body{
+		background-color: coral;
+	}
+	.container{
+		background-color: white;
+  		margin-right: 500px;
+  		margin-left: 500px;
+	}
+	legend{
+		border-style: solid;
+		background-color: red;
+	}
+	</style>
 	<body>
-	  
-		<h1>Create Your Account</h1>
 		
 		<form action="/register" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<div>
-				Username: <input type="text" th:field="${user.username}" />
-			</div>
-			<div>
-				Password: <input type="password" th:field="${user.password}" />
-			</div>
-			<div>
-				Re-enter-Password: <input type="password" name="password2"/>
-			</div>
-			<div>
-				Email: <input type="text" th:field="${user.email}" />
-			</div>
-			<div>
-				<input type="submit" value="Create Account" />
-			</div>
+			<fieldset class="container">
+			<legend>Create Your Account</legend>
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<div>
+					Username: <input type="text" th:field="${user.username}" />
+				</div>
+				<div>
+					Password: <input type="password" th:field="${user.password}" />
+				</div>
+				<div>
+					Re-enter-Password: <input type="password" name="password2"/>
+				</div>
+				<div>
+					Email: <input type="text" th:field="${user.email}" />
+				</div>
+				<div>
+					<input type="submit" value="Create Account" />
+				</div>
+				<a th:href="@{/login}">Click to login</a>
+			</fieldset>
 		</form>
 		
-		<a th:href="@{/login}">Click to login</a>
+		
 	</body>
 </html>

@@ -4,12 +4,13 @@
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>projectslist</title>
+		<link rel="stylesheet" href="/css/styles.css">
 	</head>
 	<body>
 	  
 		<h1>List of projects</h1>
 		
-		<div style="border-style: solid;">	
+		<div class="container">	
 			<div th:each="projects: ${projectsL}">
 				User: [[${projects.user.username}]] <br/>
 				Email: 	[[${projects.user.email}]] <br/>
@@ -19,6 +20,15 @@
     			[[${projects.description}]]
     			<br>
     			<a th:href="@{/editProject/{projectid}(projectid=${projects.id})}">Edit</a>
+    			
+    			<div th:each="prospectpeople: ${projects.prospectpeople}" style="border-style: solid;">
+    			<h3>Requests:</h3>
+    			
+    			userEmail: [[${prospectpeople.useremail}]] <br/>
+    			message: [[${prospectpeople.message}]]
+    			<a th:href="@{/deleteProspect/{id}(id=${prospectpeople.id})}">delete</a>
+    			<hr/>
+    			</div>
     			
     			<form method="post" th:action="@{/deleteProject/{projectid}(projectid=${projects.id})}">
 					<input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
